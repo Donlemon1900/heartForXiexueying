@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>桃心 — 谢学英我爱你</title>
+  <style>
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+      background: linear-gradient(180deg, #fff0f5 0%, #ffeef8 50%, #fff 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .card {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:min(90vw, 720px);
+      height:min(90vh, 720px);
+    }
+
+    /* 心形 SVG 容器 */
+    .heart-wrap {
+      width:100%;
+      max-width:640px;
+      aspect-ratio:1/1;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    svg {
+      width:100%;
+      height:100%;
+      display:block;
+      filter:drop-shadow(0 12px 30px rgba(255,105,180,0.12));
+    }
+
+    /* 文本覆盖在心里 */
+    .heart-text {
+      position:absolute;
+      text-align:center;
+      transform:translateY(-4%);
+      left:50%;
+      top:50%;
+      transform:translate(-50%, -50%);
+      pointer-events:none;
+      user-select:none;
+      width:86%;
+    }
+
+    .heart-text .line1{
+      font-size:clamp(22px, 4.6vw, 48px);
+      font-weight:700;
+      letter-spacing:1px;
+      color:#ffffff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    .heart-text .line2{
+      margin-top:8px;
+      font-size:clamp(16px, 2.6vw, 28px);
+      color: rgba(255,245,250,0.95);
+      font-weight:600;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.12);
+    }
+
+    /* 心跳动画 */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.03); }
+      60% { transform: scale(0.98); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      transform-origin: center center;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    /* 小装饰：闪光 */
+    .shine {
+      position:absolute;
+      width:16%;
+      height:16%;
+      right:14%;
+      top:10%;
+      pointer-events:none;
+      opacity:0.9;
+      transform: rotate(-20deg);
+      mix-blend-mode: overlay;
+      filter: blur(6px);
+    }
+
+    /* 响应式微调 */
+    @media (max-width:420px){
+      .heart-text .line1 { font-weight:700; }
+      .heart-text .line2 { font-weight:600; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="heart-wrap" role="img" aria-label="桃心，内有文字：谢学英 我爱你">
+      <!-- 用 SVG 绘制漂亮的桃心，配渐变和光泽 -->
+      <svg viewBox="0 0 100 100" class="pulse" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#ff9fc9"/>
+            <stop offset="50%" stop-color="#ff5da2"/>
+            <stop offset="100%" stop-color="#ff2d6a"/>
+          </linearGradient>
+          <radialGradient id="g2" cx="30%" cy="25%" r="60%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.9)"/>
+            <stop offset="45%" stop-color="rgba(255,255,255,0.25)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </radialGradient>
+          <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1.2" result="b"/>
+            <feComposite in="SourceGraphic" in2="b" operator="over"/>
+          </filter>
+        </defs>
+
+        <!-- 心形路径 -->
+        <path d="M50 85
+                 C20 65, 5 45, 20 28
+                 C32 15, 50 24, 50 36
+                 C50 24, 68 15, 80 28
+                 C95 45, 80 65, 50 85 Z"
+              fill="url(#g1)" stroke="#ff8ac0" stroke-width="0.6" />
+
+        <!-- 高光（渐变透明层） -->
+        <path d="M50 82
+                 C25 63, 10 46, 22 31
+                 C33 18, 50 26, 50 36
+                 C50 26, 67 18, 78 31
+                 C90 46, 75 63, 50 82 Z"
+              fill="url(#g2)" opacity="0.85" />
+
+        <!-- 额外光泽小椭圆 -->
+        <ellipse cx="66" cy="28" rx="6.5" ry="4.5" fill="rgba(255,255,255,0.45)" transform="rotate(-25 66 28)" filter="url(#soft)" />
+
+      </svg>
+
+      <!-- 覆盖文字 -->
+      <div class="heart-text" aria-hidden="false">
+        <div class="line1">谢学英</div>
+        <div class="line2">我爱你</div>
+      </div>
+
+      <!-- 可选的装饰光斑 -->
+      <svg class="shine" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="s" cx="30%" cy="30%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="100" height="100" fill="url(#s)"/>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
